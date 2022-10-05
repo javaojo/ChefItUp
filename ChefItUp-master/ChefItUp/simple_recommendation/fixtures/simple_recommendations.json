@@ -1,0 +1,250 @@
+[
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 1,
+    "fields": {
+      "recipe_id": 654028,
+      "fav_count": 1
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 2,
+    "fields": {
+      "recipe_id": 660257,
+      "fav_count": 7
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 3,
+    "fields": {
+      "recipe_id": 67308,
+      "fav_count": 1
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 4,
+    "fields": {
+      "recipe_id": 640636,
+      "fav_count": 3
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 7,
+    "fields": {
+      "recipe_id": 633264,
+      "fav_count": 2
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 8,
+    "fields": {
+      "recipe_id": 640275,
+      "fav_count": 2
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 9,
+    "fields": {
+      "recipe_id": 632026,
+      "fav_count": 5
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 10,
+    "fields": {
+      "recipe_id": 641122,
+      "fav_count": 13
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 11,
+    "fields": {
+      "recipe_id": 648470,
+      "fav_count": 9
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 12,
+    "fields": {
+      "recipe_id": 641908,
+      "fav_count": 8
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 13,
+    "fields": {
+      "recipe_id": 632115,
+      "fav_count": 12
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 14,
+    "fields": {
+      "recipe_id": 639866,
+      "fav_count": 7
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 15,
+    "fields": {
+      "recipe_id": 715497,
+      "fav_count": 3
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 16,
+    "fields": {
+      "recipe_id": 661925,
+      "fav_count": 5
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 17,
+    "fields": {
+      "recipe_id": 655853,
+      "fav_count": 25
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 18,
+    "fields": {
+      "recipe_id": 633314,
+      "fav_count": 35
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 19,
+    "fields": {
+      "recipe_id": 660837,
+      "fav_count": 20
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 20,
+    "fields": {
+      "recipe_id": 655540,
+      "fav_count": 10
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 21,
+    "fields": {
+      "recipe_id": 661249,
+      "fav_count": 5
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 22,
+    "fields": {
+      "recipe_id": 653008,
+      "fav_count": 18
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 23,
+    "fields": {
+      "recipe_id": 644376,
+      "fav_count": 3
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 24,
+    "fields": {
+      "recipe_id": 633798,
+      "fav_count": 11
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 25,
+    "fields": {
+      "recipe_id": 640648,
+      "fav_count": 1
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 26,
+    "fields": {
+      "recipe_id": 715449,
+      "fav_count": 32
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 27,
+    "fields": {
+      "recipe_id": 718600,
+      "fav_count": 20
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 28,
+    "fields": {
+      "recipe_id": 646906,
+      "fav_count": 7
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 29,
+    "fields": {
+      "recipe_id": 656620,
+      "fav_count": 1
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 30,
+    "fields": {
+      "recipe_id": 635215,
+      "fav_count": 4
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 31,
+    "fields": {
+      "recipe_id": 647201,
+      "fav_count": 3
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 32,
+    "fields": {
+      "recipe_id": 636602,
+      "fav_count": 15
+    }
+  },
+  {
+    "model": "simple_recommendation.popularrecipe",
+    "pk": 33,
+    "fields": {
+      "recipe_id": 637908,
+      "fav_count": 1
+    }
+  }
+]

@@ -1,0 +1,40 @@
+{% load static %}
+{% load socialaccount %}
+
+<div class="navbar navbar-expand-md navbar-fixed-top navbar-custom bg-dark main-nav" id="myHeader">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/#homeSection">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/#about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/#contact">Contact</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-brand navbar-nav mx-auto">
+            <a class="nav-link" href="#"><img src="{% static 'imgs/logo.png' %}"></a>
+        </ul>
+        <ul class="nav navbar-nav">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile"> <font color="orange"><p>Hi
+                        <strong>{{ user.username }}</strong></p></font></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}"><span class="fas fa-user"></span> Logout</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="modal" href="javascript:void(0)" onclick="showRegister();"><span class="fas fa-sign-in-alt"></span> Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="modal" href="javascript:void(0)" onclick="showLogin();"><span class="fas fa-sign-in-alt"></span> Login</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>

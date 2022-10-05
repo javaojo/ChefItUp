@@ -1,0 +1,9 @@
+# This is an example of .env file, containing environment variables to use by django-environ
+# More details on https://django-environ.readthedocs.io/en/latest/
+
+DATABASE_URL='sqlite:////absolute/path/to/db.sqlite3'
+ENV_TYPE=development
+SECRET_KEY='key_from_settings.py' // Cut and paste here secret key from settings.py created by Django
+DEBUG=True
+SPOONACULAR_API_KEY='your_spoonacular_key'
+SENDGRID_API_KEY='your_SendGrid_key' // https://sendgrid.com/

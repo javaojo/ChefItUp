@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    {% include 'login_modal.html' %}
+
+    <!-- PAGE CONTENT !-->
+    <section id="home">
+        {% include '_home.html' %}
+    </section>
+
+    <section id="about">
+        {% include '_about.html' %}
+    </section>
+
+    <section id="contact">
+        {% include '_contact.html' %}
+    </section>
+{% endblock %}

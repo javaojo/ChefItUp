@@ -1,0 +1,26 @@
+{% load static %}
+<div id='loading_icon' style="display: none;">
+    <img style='width:40px;' src='{% static 'imgs/loadinggif.gif' %}'/>
+</div>
+<div class="tweets">
+    <h3 class="tweet-title">ChefItUp Tweets</h3>
+    {% if tweets %}
+        {% for tweet in tweets %}
+            <a class="tweet-direct" href="{{ tweet.tweet_url }}">
+                <div class="tweet-container">
+                    <img class="tweet-img" src="{{ tweet.profile_img }}"/>
+                    <div class="tweet">
+                        <div class="tweet-name">{{ tweet.name }}:</div>
+                        <div class="tweet-text text-truncate">{{ tweet.text }}</div>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    {% else %}
+        <div class="tweet-container">
+            <div class="tweet">
+                There are no tweets at the moments.
+            </div>
+        </div>
+    {% endif %}
+</div>

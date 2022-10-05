@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container mt-2">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="row">
+                    <!--BEGIN user details-->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Welcome, {{ user.username }}</h2>
+                            <p class="mb-1 text-muted">{{ user.first_name }} {{ user.last_name }}</p>
+                            <p class="text-muted">{{ user.email }}</p>
+                        </div>
+                    </div>
+                    <!--END user details-->
+                    <!--BEGIN tabs-->
+                    <div class="row w-100">
+                        <div class="col-sm-12 w-100">
+                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <a class="nav-link active" id="saved-tab" data-toggle="pill" href="#saved" role="tab">Saved</a>
+                                <a class="nav-link" id="settings-tab" data-toggle="pill" href="#settings" role="tab">Settings</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--END tabs-->
+                </div>
+                
+            </div>
+            <!--BEGIN tab content-->
+            <div class="col-md-9 tab-content" id="v-pills-tabContent">
+                <!--BEGIN saved tab-->
+                <div class="tab-pane fade show active" id="saved" role="tabpanel" aria-labelledby="saved-tab">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Your saved recipes</h2>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <!--BEGIN recipe card container-->
+                                {% for recipe in saved_recipes %}
+                                    <div class="col-md-6 col-lg-4 col-xl-4 px-lg-1 mt-2 round-corners-5">
+                                        <div class="card shadow-sm bg-inverse card-shadow recipe-card round-corners-5 recipe-card-bg border-0"
+                                            style="background-image: url({{ recipe.img }})">
+                                            <div class="card-img-overlay px-3 py-3 h-100 d-flex flex-column justify-content-end">
+                                                <a href="/recipe/{{recipe.id}}" style="text-decoration: none"
+                                                class="text-light recipe-card-title align-middle">
+                                                    <h4 class="card-title recipe-card-title text-light mb-0">
+                                                        <span class="{{ recipe.vegan|yesno:"fas fa-leaf fa-xs vegan-icon-color, " }}"></span>
+                                                        {{ recipe.title }}
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <!--END recipe card container-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--END saved tab-->
+
+                <!--BEGIN settings tab-->
+                <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Settings</h2>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!--BEGIN update profile form-->
+                                    <div class="mb-4">
+                                        <form method="POST" action="/update_profile/">
+                                            {% csrf_token %}
+                                            {% include './_form.html' with form=update_profile_form %}
+                                            <button type="submit" class="btn btn-primary btn-large">Save changes</button>
+                                        </form>
+                                    </div>
+                                    <!--END update profile form-->
+
+                                    <!--BEGIN change password form-->
+                                    <div id="accordion">
+                                        <div class="card mb-0">
+                                            <div class="card-header" id="headingOne">
+                                                <h5 class="mb-0">
+                                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                        Change your password
+                                                    </button>
+                                                </h5>
+                                            </div>
+
+                                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                                <div class="card-body">
+                                                    <form method="POST" action="/change_password/">
+                                                        {% csrf_token %}
+                                                        {% include './_form.html' with form=password_change_form %}
+                                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--END change password form-->
+                                </div>
+                            </div>
+                        <div>
+                    </div>
+                </div>
+                <!--END settings tab-->
+            </div>
+            <!--END tab content-->
+        </div>
+    </div>
+{% endblock content %}

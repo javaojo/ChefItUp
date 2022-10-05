@@ -1,0 +1,10 @@
+{% for ingredient in selectedIngredients %}
+    <a href="#" class="text-light">
+        <span class="badge badge-pill badge-dark">{{ ingredient }}&nbsp;
+			<span class="fas fa-times"></span>
+        </span>
+    </a>
+{% endfor %}
+{% if selectedIngredients %}
+  <button id="isearchbtn" class="btn btn-success" onclick="searchByIngredients();">Search</button>
+{% endif %}

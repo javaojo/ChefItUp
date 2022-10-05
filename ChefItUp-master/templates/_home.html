@@ -1,0 +1,66 @@
+{% load static %}
+
+<div class="row" id="body-row">
+    {% include '_sidebar.html' %}
+
+    <div class="recipe-container col-md-7 py-3">
+        <input class="form-control" id="recipe-searchbar" name="query_recipe" placeholder="Search for recipes..."/>
+        <div class="row mt-2">
+            <div class="col-sm-11" id="selected-ingredients">
+                {% for ingredient in selectedIngredients %}
+                    <a href="#" class="text-light">
+                        <span class="badge badge-pill badge-dark">{{ ingredient }}&nbsp;
+                            <span class="fas fa-times"></span>
+                        </span>
+                    </a>
+                {% endfor %}
+            </div>
+
+        </div>
+        <div class="row ">
+            <div class="col-sm-12">
+                <div class="row mx-lg-n1" id="recipe_container">
+                    {% include 'recipe_container.html' %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Main Col END -->
+
+	<div class="col-md-3 col-xs-2 py-3">
+        <div class="row">
+            <div class="col-12">
+                {% if suggestions %}
+                    <h5>Why not try these?</h5>
+                {% endif %}
+                {% for suggestion in suggestions %}
+                    <div class="suggestion-box card shadow-sm mb-2">
+                        <div class="card-body p-2">
+							<a style="text-decoration: none;" href="recipe/{{ suggestion.id }}">
+								<div class="d-flex align-items-start">
+									<div>
+										<img src="{{ suggestion.img }}"
+											 class="float-left mr-2 round-corners-5 suggestion-thumbnail"/>
+									</div>
+									<p style="font-family: Rajdhani; color: black;" class="m-0">{{ suggestion.title }}</p>
+								</div>
+							</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+		<br>
+        <!-- Twitter Wrapper -->
+        <div class="row">
+            <div class="col md-12">
+                <div class="tweet-wrapper">
+                    <div class="tweets-container">
+                        {% include '_twitter_feed.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

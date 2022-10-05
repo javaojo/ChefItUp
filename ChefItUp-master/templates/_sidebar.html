@@ -1,0 +1,77 @@
+<!-- Sidebar -->
+<sidebar class="sidebar-expanded">
+    <div id="sidebar-container">
+        <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+        <!-- Bootstrap List Group -->
+        <ul class="list-group sticky-top sticky-offset">
+            <a href="#" data-toggle="sidebar-collapse"
+               class="bg-dark list-group-item list-group-item-action d-flex align-items-center">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span id="collapse-icon" class="fa fa-2x mr-3"></span>
+                    <span style="font-family: Rajdhani" id="collapse-text" class="menu-collapsed">Collapse</span>
+                </div>
+            </a>
+
+            <!-- Autocomplete input for ingredients -->
+            <li class="list-group-item py-0 px-0 d-flex align-items-center menu-collapsed">
+                <input class="form-control" placeholder="Search For Ingredients" id="ingredient-search"/>
+            </li>
+            <!-- END autocomplete input-->
+            <!-- Menu with submenu -->
+            {% if user.is_authenticated %}
+
+                <a href="#submenu-diet-preferences" data-toggle="collapse" aria-expanded="false"
+                   class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span style="font-family: Rajdhani" class="menu-collapsed">Diet Preferences</span>
+                        <span class="submenu-icon ml-auto"></span>
+                    </div>
+                </a>
+
+                <div id='submenu-diet-preferences' class="collapse sidebar-submenu">
+                    <a href="#" class="diet-preferences list-group-item list-group-item-action {% if preferences.ketogenic %} bg-success {% else %} bg-secondary {% endif %} text-white">
+                        <span style="font-family: Rajdhani" class="menu-collapsed">Ketogenic</span>
+                    </a>
+                    <a href="#" class="diet-preferences list-group-item list-group-item-action {% if preferences.dairy_free %} bg-success {% else %} bg-secondary {% endif %} text-white">
+                        <span style="font-family: Rajdhani" class="menu-collapsed">Dairy Free</span>
+                    </a>
+                    <a href="#" class="diet-preferences list-group-item list-group-item-action {% if preferences.vegetarian %} bg-success {% else %} bg-secondary {% endif %} text-white">
+                        <span style="font-family: Rajdhani" class="menu-collapsed">Vegetarian</span>
+                    </a>
+                    <a href="#" class="diet-preferences list-group-item list-group-item-action {% if preferences.vegan %} bg-success {% else %} bg-secondary {% endif %} text-white">
+                        <span style="font-family: Rajdhani" class="menu-collapsed">Vegan</span>
+                    </a>
+                    <a href="#" class="diet-preferences list-group-item list-group-item-action {% if preferences.gluten_free %} bg-success {% else %} bg-secondary {% endif %} text-white">
+                        <span style="font-family: Rajdhani" class="menu-collapsed">Gluten Free</span>
+                    </a>
+                </div>
+            {% endif %}
+
+            <div id="sidebar-category-wrapper">
+                {% for ingredientCategory, ingredients in INGREDIENTS_DICT.items %}
+                    <a href="#{{ ingredientCategory.title }}-submenu" data-toggle="collapse" aria-expanded="false"
+                       class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span style="font-family: Rajdhani" class="menu-collapsed">{{ ingredientCategory }}</span>
+                            <span class="submenu-icon ml-auto"></span>
+                        </div>
+                    </a>
+                    <div id="{{ ingredientCategory.title }}-submenu" class="collapse sidebar-submenu">
+                        {% for ingredient in ingredients %}
+                            <a href="#"
+                               class="ingredients list-group-item list-group-item-action bg-secondary text-white">
+                                <span style="font-family: Rajdhani" class="menu-collapsed">{{ ingredient|title }}</span>
+                            </a>
+                        {% endfor %}-
+                    </div>
+                {% endfor %}
+
+            </div>
+            <!-- Separator without title -->
+            <li class="list-group-item sidebar-separator menu-collapsed"></li>
+            <!-- /END Separator -->
+        </ul>
+        <!-- List Group END-->
+    </div>
+</sidebar>
+<!-- sidebar-container END -->

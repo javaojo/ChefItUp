@@ -1,0 +1,67 @@
+{% load socialaccount %}
+<div class="modal fade login" id="loginModal">
+    <div class="modal-dialog login animated">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Login</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="box">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-md-12"><a class="btn btn-lg btn-google btn-block text-uppercase btn-outline"
+                                                      href="{% provider_login_url 'google' %}"><img
+                                    src="https://img.icons8.com/color/16/000000/google-logo.png"> Signup with Google</a>
+                            </div>
+							<!--<div class="col-md-12">
+								<a class="btn btn-lg btn-twitter btn-block text-uppercase btn-outline" href="{% provider_login_url 'twitter' %}">
+									<img style='width: 15px;' src="https://cdn.hipwallpaper.com/i/81/38/MOjkyA.png"> Signup with Twitter
+								</a>
+							</div>!-->
+                        </div>
+                        <div class="division">
+                            <div class="line l"></div>
+                            <span>or</span>
+                            <div class="line r"></div>
+                        </div>
+                        <div class="error"></div>
+                        <div class="form loginBox">
+                            {% load crispy_forms_tags %}
+                            {% block content %}
+                                <form id="loginForm" method="POST" action="login_user/" accept-charset="UTF-8">
+                                    {% csrf_token %}
+                                    {{ login_form|crispy }}
+                                    <input class="btn btn-default btn-login" type="submit" value="login" name="login">
+                                </form>
+								
+                            {% endblock %}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="content registerBox" style="display:none;">
+                        <div class="form">
+                            {% block secondcontent %}
+                                {% include '_register_form.html' %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="loginFooter login-footer">
+                            <span>Looking to
+                                 <a href="javascript: switchToRegister();">create an account</a>
+                            ?</span>
+                </div>
+                <div class="loginFooter register-footer" style="display:none">
+                    <span>Already have an account?</span>
+                    <a href="javascript: switchToLogin();">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

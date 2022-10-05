@@ -1,0 +1,232 @@
+{% load static %}
+
+<script type="text/javascript">
+
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('.alert').alert()
+
+        updateTweets();
+    })
+</script>
+
+<script>
+    function updateTweets() {
+        $('.tweets').hide();
+        $('#loading_icon').show();
+        $.ajax({
+            type: 'GET',
+            url: '/ajax_calls/update_twitter_feed',
+            success: function(response) {
+                $('.tweets-container').html(response);
+            },
+			error: function() {
+				$('.tweets').hide();
+                $('#loading_icon').show();
+			},
+            complete: function() {
+                $('.tweets').show();
+                $('#loading_icon').hide();
+                setTimeout(updateTweets, 30000);
+            }
+        });
+    }
+</script>
+
+<script>
+    $(document).on('click', '.badge', function () {
+        let clickedIngredient = $.trim($(this).text());
+
+        let sidebarIngredientOption = $('a.ingredients').find('*').filter(function () {
+            return $.trim($(this).text()) === clickedIngredient;
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '/ajax_calls/remove_ingredient_filter',
+            data: {'clicked_ingredient': clickedIngredient},
+            success: function (response) {
+                $('#selected-ingredients').html(response);
+                sidebarIngredientOption.parent().removeClass('bg-success');
+                sidebarIngredientOption.parent().addClass('bg-secondary');
+            },
+        });
+    });
+
+	
+    $('a.ingredients').click(function () {
+        const clickedIngredient = $(this).text();
+        const trimmedIngredient = $.trim(clickedIngredient);
+
+        if($(this).hasClass('bg-success')) {
+            $(this).removeClass('bg-success');
+            $(this).addClass('bg-secondary');
+        } else {
+            $(this).removeClass('bg-secondary');
+            $(this).addClass('bg-success');
+        }
+
+        $.ajax({
+            type: 'GET',
+            url: '/ajax_calls/update_ingredient_filter',
+            data: {'clicked_ingredient': trimmedIngredient},
+            dataType: 'HTML',
+            success: function (response) {
+                $('#selected-ingredients').html(response);
+            },
+            error: function (response) {
+                $('#isearchbtn').hide();
+                $('#selected-ingredients').html(response);
+            }
+        });
+    });
+
+    $('#ingredient-search').keyup(function () {
+        const query = $('#ingredient-search').val();
+
+        $.ajax({
+            type: 'GET',
+            url: '/ajax_calls/ingredient_search',
+            data: {'ingredient': query},
+            success: function (response) {
+                $('#sidebar-category-wrapper').html(response)
+            }
+        });
+    });
+
+	$('a.diet-preferences').click(function () {
+        const clickedPreference = $(this).text();
+        const trimmedPreference = $.trim(clickedPreference);
+        let clickedPreferenceLink = $(this);
+
+        if (clickedPreferenceLink.hasClass('bg-success')) {
+            $('a.diet-preferences').removeClass('bg-success');
+            $('a.diet-preferences').addClass('bg-secondary');
+            clickedPreferenceLink.removeClass('bg-success');
+            clickedPreferenceLink.addClass('bg-secondary');
+        } else {
+            $('a.diet-preferences').removeClass('bg-success');
+            $('a.diet-preferences').addClass('bg-secondary');
+            clickedPreferenceLink.removeClass('bg-secondary');
+            clickedPreferenceLink.addClass('bg-success');
+        }
+
+        $.ajax({
+            type: 'GET',
+            url: '/ajax_calls/update_diet_preferences',
+            data: {'diet_preference': trimmedPreference},
+            dataType: 'HTML',
+            success: function () {
+                searchByIngredients();
+            }
+        });
+    });
+
+    function searchByIngredients() {
+        $.ajax({
+            type: 'GET',
+            url: '/ajax_calls/search_recipe_by_ingredients',
+            dataType: 'HTML',
+            success: function (response) {
+                $('#recipe_container').html(response)
+            }
+        });
+    }
+</script>
+
+<script>
+    var debounceTimeout = null;
+    $('#recipe-searchbar').on('change keyup', function () {
+        const query = $('#recipe-searchbar').val();
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/ajax_calls/recipe_query',
+                data: {'query_recipe': query},
+                dataType: 'HTML',
+                success: function (response) {
+                    $('#recipe_container').html(response);
+                }
+            });
+        }, 1000);
+    });
+</script>
+
+<script>
+    // Hide submenus
+    $('#body-row .collapse').collapse('hide');
+
+    // Collapse/Expand icon
+    $('#collapse-icon').addClass('fa-angle-double-left');
+
+    // Collapse click
+    $('[data-toggle=sidebar-collapse]').click(function () {
+        SidebarCollapse();
+    });
+
+    function SidebarCollapse() {
+        $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
+
+        $('sidebar').toggleClass('sidebar-collapsed')
+        $('.menu-collapsed').toggleClass('d-none');
+        $('.sidebar-submenu').toggleClass('d-none');
+        $('.submenu-icon').toggleClass('d-none');
+        $('.list-group a').toggleClass('d-none');
+        $('.list-group small').toggleClass('d-none');
+        $('.list-group input').toggleClass('d-none');
+    }
+</script>
+
+<script>
+    window.sr = ScrollReveal();
+    sr.reveal('.navbar', {
+        duration: 2000,
+        origin: 'bottom'
+    });
+
+    sr.reveal('sidebar', {
+        duration: 2000,
+        origin: 'bottom'
+    });
+
+    sr.reveal('#home', {
+        duration: 2000,
+        origin: 'left',
+        distance: '300px'
+    });
+
+    sr.reveal('.about-left', {
+        duration: 2000,
+        origin: 'left',
+        distance: '300px'
+    });
+
+    sr.reveal('.about-right', {
+        duration: 2000,
+        origin: 'right',
+        distance: '300px'
+    });
+
+    //Function to scroll on link click
+    $(function () {
+        $('.navbar a[href*="#"]:not([href="#"])').click(function () {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    });
+</script>
+
+<script src="{% static 'javascript/authentication.js' %}"></script>
+

@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ChefItUp</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="google-site-verification" content="5c1L4tI34BiiXqAW6U9t6ZqRCuETC2D5vAJyfZ3Kc0c"/>
+
+    {% include '_stylesheets.html' %}
+    {% include '_scripts.html' %}
+</head>
+
+<body>
+
+<section id="homeSection"></section>
+
+{% include '_navbar.html' %}
+
+{% include '_alerts.html' %}
+
+{% block content %}
+{% endblock %}
+
+{% include '_jquery.html' %}
+</body>
+</html>

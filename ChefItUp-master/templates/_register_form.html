@@ -1,0 +1,7 @@
+{% load crispy_forms_tags %}
+<form id="registerForm" method="POST" action="register_user/" class="form-group">
+    {% csrf_token %}
+    {{ register_form|crispy }}
+    <input class="btn btn-default btn-register" type="submit" value="Create account"
+           name="register">
+</form>

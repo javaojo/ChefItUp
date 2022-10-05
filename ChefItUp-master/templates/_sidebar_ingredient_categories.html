@@ -1,0 +1,39 @@
+{% for ingredientCategory, ingredients in ingredient_dict %}
+    <a href="#{{ ingredientCategory.title }}-submenu" data-toggle="collapse" aria-expanded="false"
+       class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-start align-items-center">
+            <span style="font-family: Rajdhani" class="menu-collapsed">{{ ingredientCategory }}</span>
+            <span class="submenu-icon ml-auto"></span>
+        </div>
+    </a>
+    <div id="{{ ingredientCategory.title }}-submenu" class="collapse sidebar-submenu">
+        {% for ingredient in ingredients %}
+            <a href="#" class="ingredients list-group-item list-group-item-action bg-secondary text-white">
+                <span style="font-family: Rajdhani" class="menu-collapsed">{{ ingredient|title }}</span>
+            </a>
+        {% endfor %}-
+    </div>
+{% endfor %}
+
+<!-- Reapplying jQuery Code -->
+<script>
+    $('a.ingredients').click(function () {
+        const clickedIngredient = $(this).text();
+        const trimmedIngredient = $.trim(clickedIngredient);
+
+        $(this).toggleClass('bg-success');
+
+        $.ajax({
+            type: 'GET',
+            url: '/ajax_calls/update_ingredient_filter',
+            data: {'clicked_ingredient': trimmedIngredient},
+            dataType: 'HTML',
+            success: function (response) {
+                $('#selected-ingredients').html(response);
+            },
+            error: function () {
+                location.href = '/';
+            }
+        });
+    });
+</script>

@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    {% include 'login_modal.html' %}
+    <div class="container">
+        <!--BEGIN Header-->
+        <div class="row mt-3">
+            <div class="col-sm-12">
+                <div class="card mb-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img class="recipe-header-img" src="{{ recipe.image }}"/>
+
+                                {% if user.is_authenticated %}
+                                    <!--BEGIN save/unsave button-->
+                                    {% if saved %}
+                                        <form action="/unsave_recipe/" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id" value="{{ id }}"/>
+                                            <input type="hidden" name="redirect_id" value="{{ spoonacular_id }}"/>
+                                            <button class="btn btn-danger btn-lg mt-2 w-100" type="submit">Unsave Recipe
+                                            </button>
+                                        </form>
+                                    {% else %}
+                                        <form action="/save_recipe/" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id" value="{{ recipe.id }}"/>
+                                            <input type="hidden" name="redirect_id" value="{{ spoonacular_id }}"/>
+                                            <button class="btn btn-success btn-lg mt-2 w-100" type="submit">Save Recipe
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                    <!--END save/unsave button-->
+                                {% endif %}
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h1>{{ recipe.title }} <span
+                                                class={{ recipe.vegan|yesno:"fas fa-leaf fa-xs vegan-icon-color, " }}></span>
+                                        </h1>
+                                    </div>
+                                    <!--BEGIN rating-->
+                                    <div class="col-sm-12">
+                                        {% for i in recipe.ratingStars %}
+                                            <span class="fa fa-star checked"></span>
+                                        {% endfor %}
+                                        {% for i in recipe.remainderStars %}
+                                            <span class="fa fa-star"></span>
+                                        {% endfor %}
+                                    </div>
+                                    <!--END rating-->
+
+                                    <!--BEGIN details-->
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <!--BEGIN timings-->
+                                            {% if recipe.preparationMinutes or recipe.cookingMinutes %}
+                                                <div class="col d-flex flex-row align-items-center">
+                                                    <i class="far fa-2x fa-clock"></i>
+                                                    <div class="d-flex flex-column">
+                                                        {% if recipe.preparationMinutes %}
+                                                            <p class="mb-0 ml-2">Prep: {{ recipe.preparationMinutes }}
+                                                                min</p>
+                                                        {% endif %}
+                                                        {% if recipe.cookingMinutes %}
+                                                            <p class="mb-1 ml-2">Cook: {{ recipe.cookingMinutes }}
+                                                                min</p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            <!--END timings-->
+                                            <div class="col d-flex flex-row align-items-center">
+                                                <i class="fas fa-2x fa-utensils"></i>
+                                                <p class="mb-1 ml-2">Serves {{ recipe.servings }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--END details-->
+
+                                    <!--BEGIN summary-->
+                                    <div class="col-sm-12">
+                                        <p>
+                                            {% autoescape off %}
+                                                {% if recipe.analyzedInstructions %}
+                                                    {{ recipe.summary }}
+                                                {% else %}
+                                                    <p>Could not Fetch from Spoonacular due to reaching API Quota
+                                                        Limit.</p>
+                                                {% endif %}
+                                            {% endautoescape %}
+                                        </p>
+                                    </div>
+                                    <!--END summary-->
+
+                                    <!--BEGIN dietary details-->
+                                    <div class="col-sm-12">
+                                        {% if recipe.vegetarian %}
+                                            <span class="badge badge-success">Vegetarian</span>
+                                        {% endif %}
+                                        {% if recipe.veryHealthy %}
+                                            <span class="badge badge-success">Very Healthy</span>
+                                        {% endif %}
+                                        {% if dairyFree %}
+                                            <span class="badge badge-dark">Dairy Free</span>
+                                        {% endif %}
+                                        {% if glutenFree %}
+                                            <span class="badge badge-secondary">Gluten Free</span>
+                                        {% endif %}
+                                    </div>
+                                    <!--END dietary details-->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END Header-->
+
+        <!--BEGIN ingredients + method-->
+        <div class="row mt-3 mb-3">
+            <!--BEGIN ingredients-->
+            <div class="col-md-4 mb-4">
+                <h4>Ingredients</h4>
+                <hr/>
+                <ul class="list-group">
+                    {% if recipe.analyzedInstructions %}
+                        {% for ingredient in recipe.extendedIngredients %}
+                            <li class="list-group-item">{{ ingredient.original }}</li>
+                        {% endfor %}
+                    {% else %}
+                        Could not fetch from Spoonacular.
+                    {% endif %}
+                </ul>
+            </div>
+            <!--END ingredients-->
+
+            <!--BEGIN method-->
+            <div class="col-md-6">
+                <h4>Method</h4>
+                <hr/>
+                <ol>
+                    {% if recipe.analyzedInstructions %}
+                        {% for instruction in recipe.analyzedInstructions %}
+                            <li>{{ instruction.step }}</li>
+                            <hr/>
+                        {% endfor %}
+                    {% else %}
+                        <li>Could not fetch from the Spoonacular API.</li>
+                        <hr/>
+                    {% endif %}
+                </ol>
+            </div>
+            <!--END method-->
+        </div>
+        <!--END ingredients + method-->
+
+        <hr>
+        {% if user.is_authenticated %}
+            <h2 class="text-center" style="font-family: Rajdhani">Share your Recipe on Twitter!</h2>
+            <div class="tweet-box">
+                <form action="sendtweet/" method="post" role="form" id="validation">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="hidden" name="recipe_id" value="{{ id }}"/>
+                        <input class="form-control" name="message" style="resize: none; height: 100px;"
+                               data-rule-required="required" data-msg="Please write something for us"></input>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-success" type="submit">Tweet</button>
+                    </div>
+                </form>
+
+            </div>
+            <br>
+        {% else %}
+            <h2 class="text-center" style="font-family: Rajdhani">Sign In to share your Recipes on Twitter.</h2>
+        {% endif %}
+    </div>
+{% endblock content %}
+
+<script src="{% static 'javascript/authentication.js' %}"></script>

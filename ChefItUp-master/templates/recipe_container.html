@@ -1,0 +1,26 @@
+{% if quota_reached %}
+    <h2 style="font-family: Rajdhani">Results could not be fetched as the Spoonacular API Quota Limit has been reached.</h2>
+{% else %}
+    {% for recipe in recipes %}
+        <div class="col-md-4 col-lg-4 col-xl-3 px-lg-1 mb-sm-1 mb-md-2 mt-2 round-corners-5">
+            <a href="recipe/{{ recipe.id }}" style="text-decoration: none"
+               class="text-light recipe-card-title align-middle">
+                <div class="card shadow-sm bg-inverse card-shadow recipe-card round-corners-5 recipe-card-bg border-0"
+                     style="background-image: url({{ recipe.img }});  background-size:cover;">
+                    <div class="card-img-overlay px-3 py-3 h-100 d-flex flex-column justify-content-end">
+                        <h4 class="card-title recipe-card-title text-light mb-0">
+                            <span class="{{ recipe.vegan|yesno:"fas fa-leaf fa-xs vegan-icon-color, " }}"></span>
+                            {{ recipe.title }}
+                        </h4>
+                    </div>
+
+                    {% for saved in saved_recipes %}
+                        {% if saved.recipe_id == recipe.id and saved.custom_user_id == user.id and user.is_authenticated %}
+                            <i class="far fa-check-circle"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+{% endif %}

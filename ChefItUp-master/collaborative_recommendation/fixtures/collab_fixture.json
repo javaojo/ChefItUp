@@ -1,0 +1,120 @@
+[
+  {
+    "model": "users.customuser",
+    "pk": 1,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "username": "username1",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-05-29T16:04:09.878Z",
+      "email": "",
+      "password": "",
+      "first_name": "",
+      "last_name": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.customuser",
+    "pk": 2,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "username": "username2",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-05-29T16:04:09.885Z",
+      "email": "",
+      "password": "",
+      "first_name": "",
+      "last_name": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.customuser",
+    "pk": 3,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "username": "username3",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-05-29T16:04:09.889Z",
+      "email": "",
+      "password": "",
+      "first_name": "",
+      "last_name": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.savedrecipe",
+    "pk": 1,
+    "fields": {
+      "custom_user": 1,
+      "recipe_id": 633508
+    }
+  },
+  {
+    "model": "users.savedrecipe",
+    "pk": 2,
+    "fields": {
+      "custom_user": 1,
+      "recipe_id": 634873
+    }
+  },
+  {
+    "model": "users.savedrecipe",
+    "pk": 3,
+    "fields": {
+      "custom_user": 2,
+      "recipe_id": 633508
+    }
+  },
+  {
+    "model": "users.savedrecipe",
+    "pk": 4,
+    "fields": {
+      "custom_user": 2,
+      "recipe_id": 634873
+    }
+  },
+  {
+    "model": "users.savedrecipe",
+    "pk": 5,
+    "fields": {
+      "custom_user": 2,
+      "recipe_id": 782600
+    }
+  },
+  {
+    "model": "users.savedrecipe",
+    "pk": 6,
+    "fields": {
+      "custom_user": 3,
+      "recipe_id": 655575
+    }
+  },
+  {
+    "model": "users.savedrecipe",
+    "pk": 7,
+    "fields": {
+      "custom_user": 3,
+      "recipe_id": 648320
+    }
+  },
+  {
+    "model": "users.savedrecipe",
+    "pk": 8,
+    "fields": {
+      "custom_user": 3,
+      "recipe_id": 660368
+    }
+  }
+]

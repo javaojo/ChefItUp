@@ -1,0 +1,10 @@
+
+
+<form action="/save_recipe/" method="post" id="form">
+  {% csrf_token %}
+    <input  type="hidden" id='recipe' name="recipe" value="{{ recipe }}" >
+   <button  class='button' type="submit"class="btn btn-success" class="d-flex w-100 justify-content-start align-items-center">
+  <span>Save</span></button>
+</form>
+
+
